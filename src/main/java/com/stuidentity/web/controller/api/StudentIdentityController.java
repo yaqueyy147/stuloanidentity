@@ -1,7 +1,11 @@
 package com.stuidentity.web.controller.api;
 
+import com.alibaba.fastjson.JSONObject;
+import com.stuidentity.web.mybatis.domain.Creditscore;
 import com.stuidentity.web.mybatis.domain.Studentroll;
+import com.stuidentity.web.mybatis.domain.inte.CreditscoreMapper;
 import com.stuidentity.web.mybatis.domain.inte.StudentrollMapper;
+import com.stuidentity.web.vo.ResultBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,20 +27,39 @@ public class StudentIdentityController {
 
     @Autowired
     private StudentrollMapper studentrollMapper;
+    @Autowired
+    private CreditscoreMapper creditscoreMapper;
 
-    @RequestMapping(value = "stuidentity")
+    @RequestMapping(value = "/stuidentity")
     @ResponseBody
     public Object stuidentity(HttpServletRequest request, @RequestParam Map<String,Object> params){
-        Map<String,Object> result = new HashMap<>();
-        result.put("code",0);
-        result.put("message","认证失败");
+        ResultBase resultBase = new ResultBase();
+        resultBase.setSuccess(false);
+        resultBase.setMessage("认证失败");
 
-        List<Studentroll> list = studentrollMapper.selectByParams(params);
-        if(list != null && list.size() > 0){
-            result.put("stuinfo",list.get(0));
-            result.put("code",1);
-            result.put("message","认证成功");
+        Map<String,String> result = new HashMap<>();
+//        result.put("code",0);
+//        result.put("message","认证失败");
+
+        try {
+            List<Studentroll> list = studentrollMapper.selectByParams(params);
+            if(list != null && list.size() > 0){
+                result.put("studentinfo", JSONObject.toJSONString(list.get(0)));
+            }
+
+            List<Creditscore> list1 = creditscoreMapper.selectByParams(params);
+            if(list1 != null && list1.size() > 0){
+                result.put("creditscore",JSONObject.toJSONString(list1.get(0)));
+            }
+            resultBase.setResultmaps(result);
+            resultBase.setSuccess(true);
+            resultBase.setMessage("认证成功");
+//            result.put("code",1);
+//            result.put("message","认证成功");
+        }catch (Exception e){
+            ;
         }
+
         return result;
     }
 
