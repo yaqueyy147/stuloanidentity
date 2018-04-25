@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="hlideal-jetty-console">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/hlideal-jetty-console.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
