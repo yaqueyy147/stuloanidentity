@@ -8,7 +8,7 @@ import cq.hlideal.jetty.main.server.JettyWebServer;
 public class JettyStart01 {
     //实际部署时删除
     public static int port = 8082;
-    public static String host = "192.168.31.156";
+    public static String host = "10.2.12.58";
     public static String tempdir = "d://temp14";
     public static String logdir = "d://temp14";
     public static String webdir = "src/main/webapp/";
