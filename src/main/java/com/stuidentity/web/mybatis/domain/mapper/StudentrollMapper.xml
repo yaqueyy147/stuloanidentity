@@ -58,6 +58,15 @@
     <if test="stuidcard != null and stuidcard != ''">
       and stuidcard = #{stuidcard,jdbcType=VARCHAR}
     </if>
+    <if test="school != null and school != ''">
+      and school = #{school,jdbcType=VARCHAR}
+    </if>
+    <if test="classgrade != null and classgrade != ''">
+      and classgrade = #{classgrade,jdbcType=VARCHAR}
+    </if>
+    <if test="stunum != null and stunum != ''">
+      and stunum = #{stunum,jdbcType=VARCHAR}
+    </if>
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">

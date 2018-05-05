@@ -32,20 +32,41 @@ public class StudentIdentityController {
 
     @RequestMapping(value = "/stuidentity")
     @ResponseBody
-    public Object stuidentity(HttpServletRequest request, @RequestParam Map<String,Object> params){
+    public ResultBase stuidentity(HttpServletRequest request, @RequestParam Map<String,Object> params){
         ResultBase resultBase = new ResultBase();
         resultBase.setSuccess(false);
         resultBase.setMessage("认证失败");
 
         Map<String,String> result = new HashMap<>();
-//        result.put("code",0);
-//        result.put("message","认证失败");
 
         try {
             List<Studentroll> list = studentrollMapper.selectByParams(params);
             if(list != null && list.size() > 0){
                 result.put("studentinfo", JSONObject.toJSONString(list.get(0)));
+                resultBase.setResultmaps(result);
+                resultBase.setSuccess(true);
+                resultBase.setMessage("认证成功");
             }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            resultBase.setSuccess(false);
+            resultBase.setMessage("认证失败");
+        }
+
+        return resultBase;
+    }
+
+    @RequestMapping(value = "/creditidentity")
+    @ResponseBody
+    public Object creditidentity(HttpServletRequest request, @RequestParam Map<String,Object> params){
+        ResultBase resultBase = new ResultBase();
+        resultBase.setSuccess(false);
+        resultBase.setMessage("认证失败");
+
+        Map<String,String> result = new HashMap<>();
+
+        try {
 
             List<Creditscore> list1 = creditscoreMapper.selectByParams(params);
             if(list1 != null && list1.size() > 0){
@@ -54,10 +75,10 @@ public class StudentIdentityController {
             resultBase.setResultmaps(result);
             resultBase.setSuccess(true);
             resultBase.setMessage("认证成功");
-//            result.put("code",1);
-//            result.put("message","认证成功");
         }catch (Exception e){
-            ;
+            e.printStackTrace();
+            resultBase.setSuccess(false);
+            resultBase.setMessage("认证失败");
         }
 
         return result;
