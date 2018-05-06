@@ -59,7 +59,7 @@ public class StudentIdentityController {
 
     @RequestMapping(value = "/creditidentity")
     @ResponseBody
-    public Object creditidentity(HttpServletRequest request, @RequestParam Map<String,Object> params){
+    public ResultBase creditidentity(HttpServletRequest request, @RequestParam Map<String,Object> params){
         ResultBase resultBase = new ResultBase();
         resultBase.setSuccess(false);
         resultBase.setMessage("认证失败");
@@ -81,7 +81,7 @@ public class StudentIdentityController {
             resultBase.setMessage("认证失败");
         }
 
-        return result;
+        return resultBase;
     }
 
 }
